@@ -4,7 +4,7 @@ A browser FPS prototype set in a 120 × 120 metre industrial map, with solo prac
 
 ## Run locally
 
-Requires Node.js 20.19+ or 22.12+. Babylon.js is installed and bundled locally; the game engine does not require a CDN connection.
+Requires Node.js 24. Run these commands from `shift-arena/`. Babylon.js is installed and bundled locally; the game engine does not require a CDN connection.
 
 ```sh
 npm install
@@ -75,7 +75,9 @@ npm run build
 npm start
 ```
 
-`npm start` serves the production build and multiplayer on port 5173. Set `HOST=0.0.0.0 PORT=5173` to listen externally on a server you control. For internet use, place this Node process behind HTTPS with WebSocket upgrades forwarded for `/room`; the browser uses the current origin, so no separate endpoint configuration is needed. Rooms are in process memory: run one process until shared room routing is added.
+`npm start` serves the production build and multiplayer on port 5173, listening on `0.0.0.0`. Set `PORT` to use the hosting provider's assigned port, or `HOST=127.0.0.1` to restrict access to this computer. Startup fails with a clear error if the production build is missing. For internet use, place this Node process behind HTTPS with WebSocket upgrades forwarded for `/room`; the browser uses the current origin, so no separate client endpoint configuration is needed. Rooms are in process memory: run one process until shared room routing is added.
+
+See [the deployment guide](../DEPLOYMENT.md) for Docker, Railway setup, environment variables, and the four-player smoke check. `npm run smoke:production` verifies a local production build; `npm run smoke:online -- https://your-game-host` checks a deployed server.
 
 The current Sites URL hosts static assets only. Solo practice works there; the room dialog reports that private rooms are unavailable on that host. Online multiplayer requires the persistent Node server above; a multiplayer backend has not been deployed to Sites.
 
